@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/home';
 import About from '../screens/about';
-import AddItem from '../screens/addItem';
+import EditItem from '../screens/editItem';
 
 const Stack = createStackNavigator();
 
@@ -18,8 +18,8 @@ export default function HomeStack() {
                 component={About}
             />
             <Stack.Screen 
-                name='AddItem'
-                component={AddItem}
+                name='Edit Item'
+                component={EditItem}
             />
         </Stack.Navigator>
     );

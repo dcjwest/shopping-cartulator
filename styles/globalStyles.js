@@ -5,6 +5,7 @@ export const globalStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        width: '100%'
     },
     button: {
         margin: 8
