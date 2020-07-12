@@ -7,13 +7,15 @@ export default function ListItem({ currentItem, formatAmount, showEditItemScreen
     return (
         <TouchableOpacity onPress={() => showEditItemScreen(currentItem)}>
             <View style={styles.listItemContainer}>
-                <CheckBox 
-                    containerStyle={{padding: 0, margin: 0}}
-                    checkedColor='#1988DC'
-                    size={20}
-                    checked={currentItem.checked}
-                    onPress={() => toggleCheckedItem(currentItem.key)}
-                />
+                <View style={styles.checkBoxContainer}>
+                    <CheckBox 
+                        containerStyle={{padding: 0, margin: 0}}
+                        checkedColor='#1988DC'
+                        size={24}
+                        checked={currentItem.checked}
+                        onPress={() => toggleCheckedItem(currentItem.key)}
+                    />
+                </View>
                 <View style={styles.listItem}>
                     <View style={styles.itemName}>
                         <Text style={globalStyles.textContent}>{currentItem.name}</Text>
@@ -39,6 +41,9 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 20
     },
+    checkBoxContainer: {
+        marginHorizontal: -5
+    },
     listItem: {
         flex: 1,
         flexDirection: 'row',
@@ -46,12 +51,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     itemName: {
-        flex: 4
+        flex: 5
     },
     itemQuantity: {
         flex: 1
     },
     itemCost: {
-        flex: 2
+        flex: 3
     }
 });

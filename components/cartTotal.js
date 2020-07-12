@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function CartTotal({ cartItems, formatAmount }) {
     function calculateTotal() {
@@ -11,20 +12,44 @@ export default function CartTotal({ cartItems, formatAmount }) {
     }
 
     return (
-        <View style={styles.cartTotalContainer}>
-            <Text style={styles.cartTotalText}>Cart Total: </Text>
-            <Text style={styles.cartTotalText}>{calculateTotal()}</Text>
+        <View style={styles.totalContainer}>
+            <View  style={styles.totalTitleContainer}>
+                <FontAwesome name="calculator" size={20} color="#fff" />
+                <Text style={styles.totalTitle}>Total</Text>
+            </View>
+            <Text style={styles.totalText}>{calculateTotal()}</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    cartTotalContainer: {
-        flexDirection: 'row',
-        marginVertical: 24
+    totalContainer: {
+        backgroundColor: '#1988DC',
+        borderRadius: 25,
+        elevation: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 24,
+        paddingVertical: 20,
+        width: 160,
+        height: 150
     },
-    cartTotalText: {
-        fontSize: 24,
+    totalTitleContainer: {
+        flexDirection: 'row',
+        borderBottomWidth: 2,
+        borderBottomColor: '#fff',
+        alignItems: 'center',
+    },
+    totalTitle: {
+        color: '#fff',
+        fontSize: 22,
+        fontWeight: 'bold',
+        letterSpacing: 1,
+        marginLeft: 5
+    },
+    totalText: {
+        color: '#fff',
+        fontSize: 25,
         fontWeight: 'bold'
     }
 });

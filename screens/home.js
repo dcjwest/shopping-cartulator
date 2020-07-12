@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Modal } from 'react-native';
+import { StyleSheet, View, Text, Modal, Image } from 'react-native';
 import CartTotal from '../components/cartTotal';
 import List from '../components/list';
 import InputItemScreen from '../components/inputItem';
@@ -7,17 +7,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { globalStyles } from '../styles/globalStyles';
 
 export default function Home({ route, navigation }) {
-    const [cartItems, setCartItems] = useState([
-        // { key: '1', name: 'Bread', quantity: 1, cost: 12.5, checked: false },
-        // { key: '2', name: 'Eggs', quantity: 6, cost: 27.99, checked: false },
-        // { key: '3', name: 'Milk', quantity: 2, cost: 69, checked: false }
-    ]);
+    const [cartItems, setCartItems] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         if (route.params) {
             const newItem = { ...route.params };
-            console.log('Got new item!', newItem);
 
             setCartItems(previousItems => previousItems.map(item => {
                 return item.key === newItem.key? newItem : item;
@@ -87,7 +82,9 @@ export default function Home({ route, navigation }) {
     if (cartItems.length === 0) {
         return (
             <View style={globalStyles.container}>
-                <Text>Your cart is empty...</Text>
+                <Image source={require('../assets/shopping-cart.png')} />
+                <Text style={styles.emptyCartHeading}>Your cart is empty...</Text>
+                <Text style={styles.emptyCartText}>Tap the + button to create your shopping list.</Text>
                 <Modal visible={modalOpen} animated>
                     <View>
                         {closeModalBtn}
@@ -134,5 +131,14 @@ const styles = StyleSheet.create({
     closeModalBtnContainer: {
         alignItems: 'flex-end',
         padding: 20
+    },
+    emptyCartHeading: {
+        color: '#555',
+        marginTop: 20
+    },
+    emptyCartText: {
+        color: '#888',
+        fontSize: 12,
+        marginTop: 5
     }
 });
