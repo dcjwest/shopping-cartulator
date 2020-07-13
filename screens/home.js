@@ -70,23 +70,24 @@ export default function Home({ route, navigation }) {
     );
 
     const closeModalBtn = (
-        <View style={styles.closeModalBtnContainer}>
-            <MaterialIcons
+        <MaterialIcons
                 name='close'
-                size={32} color='#333'
+                color='#333'
+                size={32}
                 onPress={toggleModal}
-            />
-        </View>
+                style={styles.closeModalBtn}
+        />
     );
 
     if (cartItems.length === 0) {
         return (
             <View style={globalStyles.container}>
-                <Image source={require('../assets/shopping-cart.png')} />
+                <Image source={require('../assets/shopping_cart.png')} style={{width: 128, height: 128}} />
                 <Text style={styles.emptyCartHeading}>Your cart is empty...</Text>
                 <Text style={styles.emptyCartText}>Tap the + button to create your shopping list.</Text>
                 <Modal visible={modalOpen} animated>
                     <View>
+                        <Text  style={{ ...globalStyles.textTitle, ...styles.modalTitle }}>Add Item</Text>
                         {closeModalBtn}
                         <InputItemScreen submitItem={addNewItem} />
                     </View>
@@ -109,6 +110,7 @@ export default function Home({ route, navigation }) {
             />
             <Modal visible={modalOpen} animated>
                 <View>
+                    <Text  style={{ ...globalStyles.textTitle, ...styles.modalTitle }}>Add Item</Text>
                     {closeModalBtn}
                     <InputItemScreen submitItem={addNewItem} />
                 </View>
@@ -128,10 +130,6 @@ const styles = StyleSheet.create({
         right: 30,
         bottom: 30,
     },
-    closeModalBtnContainer: {
-        alignItems: 'flex-end',
-        padding: 20
-    },
     emptyCartHeading: {
         color: '#555',
         marginTop: 20
@@ -140,5 +138,16 @@ const styles = StyleSheet.create({
         color: '#888',
         fontSize: 12,
         marginTop: 5
-    }
+    },
+    modalTitle: {
+        borderBottomColor: '#555',
+        color: '#555',
+        margin: 30,
+    },
+    closeModalBtn: {
+        position: 'absolute',
+        top: 8,
+        right: 16,
+        zIndex: 1
+    },
 });

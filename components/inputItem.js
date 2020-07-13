@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { Input } from 'react-native-elements';
 
 export default function InputItem({ currentItem = {key:'', name:'', cost:'', quantity:'', checked:false}, submitItem }) {
@@ -59,9 +59,12 @@ export default function InputItem({ currentItem = {key:'', name:'', cost:'', qua
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20
+        backgroundColor: '#fff',
+        // flex: 1,
+        paddingHorizontal: 18,
+        paddingTop: 16
     },
     inputField: {
+    },
 
-    }
 })
