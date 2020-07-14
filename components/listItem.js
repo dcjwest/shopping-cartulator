@@ -7,9 +7,9 @@ export default function ListItem({ currentItem, formatAmount, showEditItemScreen
     return (
         <TouchableOpacity onPress={() => showEditItemScreen(currentItem)}>
             <View style={styles.listItemContainer}>
-                <View style={styles.checkBoxContainer}>
+                <View style={{ marginHorizontal: -5 }}>
                     <CheckBox 
-                        containerStyle={{padding: 0, margin: 0}}
+                        containerStyle={{ padding: 0, margin: 0 }}
                         checkedColor='#1988DC'
                         size={24}
                         checked={currentItem.checked}
@@ -17,13 +17,13 @@ export default function ListItem({ currentItem, formatAmount, showEditItemScreen
                     />
                 </View>
                 <View style={styles.listItem}>
-                    <View style={styles.itemName}>
+                    <View style={{ flex: 5 }}>
                         <Text style={globalStyles.textContent}>{currentItem.name}</Text>
                     </View>
-                    <View style={styles.itemQuantity}>
-                        <Text style={globalStyles.textContent}>{currentItem.quantity}</Text>
+                    <View style={{ flex: 1 }}>
+                        <Text style={globalStyles.textContent}>{`x${currentItem.quantity}`}</Text>
                     </View>
-                    <View style={styles.itemCost}>
+                    <View style={{ flex: 3 }}>
                         <Text style={globalStyles.textContent}>{`@${formatAmount(currentItem.cost)}`}</Text>
                     </View>
                 </View>
@@ -41,22 +41,10 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 20
     },
-    checkBoxContainer: {
-        marginHorizontal: -5
-    },
     listItem: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
-    },
-    itemName: {
-        flex: 5
-    },
-    itemQuantity: {
-        flex: 1
-    },
-    itemCost: {
-        flex: 3
     }
 });

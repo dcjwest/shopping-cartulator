@@ -6,7 +6,7 @@ import HomeStack from './routes/homeStack';
 export default function App() {
   return (
     <NavigationContainer>
-        <StatusBar style="auto" />
+        <StatusBar style='light'/>
         <HomeStack />
       </NavigationContainer>
   );

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Modal, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import AddItemButton from '../components/addItemButton';
+import AddItemModal from '../screens/addItemModal';
 import CartTotal from '../components/cartTotal';
+import EmptyCart from '../components/emptyCart';
 import List from '../components/list';
-import InputItemScreen from '../components/inputItem';
-import { MaterialIcons } from '@expo/vector-icons';
 import { globalStyles } from '../styles/globalStyles';
 
 export default function Home({ route, navigation }) {
@@ -12,11 +13,14 @@ export default function Home({ route, navigation }) {
 
     useEffect(() => {
         if (route.params) {
-            const newItem = { ...route.params };
+            if (route.params.hasOwnProperty('deleteItemKey')) deleteItem(route.params.deleteItemKey);
 
-            setCartItems(previousItems => previousItems.map(item => {
-                return item.key === newItem.key? newItem : item;
-            }));
+            if (route.params.hasOwnProperty('key')) {
+                const newItem = { ...route.params };
+                setCartItems(previousItems => previousItems.map(item => {
+                    return item.key === newItem.key? newItem : item;
+                }));
+            }
         }
     }, [route.params])
 
@@ -52,70 +56,43 @@ export default function Home({ route, navigation }) {
         setModalOpen(!modalOpen);
     }
 
-    function addNewItem(newItem) {
+    function submitNewItem(newItem) {
         setCartItems(previousItems => [ ...previousItems, newItem ]);
         toggleModal();
     }
 
-    const addItemBtn = (
-        <View style={styles.addBtnContainer}>
-            <MaterialIcons
-                name='add-circle'
-                size={60}
-                color='#1988DC'
-                style={{margin: -6}}
-                onPress={() => setModalOpen(true)}
-            />
-        </View>
-    );
-
-    const closeModalBtn = (
-        <MaterialIcons
-                name='close'
-                color='#333'
-                size={32}
-                onPress={toggleModal}
-                style={styles.closeModalBtn}
-        />
-    );
-
-    if (cartItems.length === 0) {
-        return (
-            <View style={globalStyles.container}>
-                <Image source={require('../assets/shopping_cart.png')} style={{width: 128, height: 128}} />
-                <Text style={styles.emptyCartHeading}>Your cart is empty...</Text>
-                <Text style={styles.emptyCartText}>Tap the + button to create your shopping list.</Text>
-                <Modal visible={modalOpen} animated>
-                    <View>
-                        <Text  style={{ ...globalStyles.textTitle, ...styles.modalTitle }}>Add Item</Text>
-                        {closeModalBtn}
-                        <InputItemScreen submitItem={addNewItem} />
-                    </View>
-                </Modal>
-                {addItemBtn}
-            </View>
-        );
+    function deleteItem(key) {
+        setCartItems(previousItems => previousItems.filter(item => {
+            return item.key !== key;
+        }));
     }
-    else return (
+
+    return (
         <View style={globalStyles.container}>
-            <CartTotal 
-                cartItems={cartItems}
-                formatAmount={formatAmount}
-            />
-            <List 
-                cartItems={cartItems} 
-                formatAmount={formatAmount}
-                showEditItemScreen={showEditItemScreen}
-                toggleCheckedItem={toggleCheckedItem}
-            />
-            <Modal visible={modalOpen} animated>
-                <View>
-                    <Text  style={{ ...globalStyles.textTitle, ...styles.modalTitle }}>Add Item</Text>
-                    {closeModalBtn}
-                    <InputItemScreen submitItem={addNewItem} />
+            { cartItems.length === 0? (
+                <EmptyCart />
+            ) : (
+                <View style={globalStyles.container}>
+                    <CartTotal 
+                        cartItems={cartItems}
+                        formatAmount={formatAmount}
+                    />
+                    <List 
+                        cartItems={cartItems} 
+                        formatAmount={formatAmount}
+                        showEditItemScreen={showEditItemScreen}
+                        toggleCheckedItem={toggleCheckedItem}
+                    />
                 </View>
-            </Modal>
-            {addItemBtn}
+            )}
+            <AddItemModal 
+                modalOpen={modalOpen}
+                toggleModal={toggleModal}
+                submitItem={submitNewItem}
+            />
+            <View style={styles.addBtnContainer}>
+                <AddItemButton toggleModal={toggleModal} />
+            </View>
         </View>
     );
 }
@@ -129,25 +106,5 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 30,
         bottom: 30,
-    },
-    emptyCartHeading: {
-        color: '#555',
-        marginTop: 20
-    },
-    emptyCartText: {
-        color: '#888',
-        fontSize: 12,
-        marginTop: 5
-    },
-    modalTitle: {
-        borderBottomColor: '#555',
-        color: '#555',
-        margin: 30,
-    },
-    closeModalBtn: {
-        position: 'absolute',
-        top: 8,
-        right: 16,
-        zIndex: 1
-    },
+    }
 });

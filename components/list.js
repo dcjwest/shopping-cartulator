@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import ListItem from './listItem';
 import { globalStyles } from '../styles/globalStyles';
 
@@ -7,6 +7,7 @@ export default function List({ cartItems, formatAmount, showEditItemScreen, togg
     return (
         <View style={globalStyles.container}>
             <FlatList 
+                style={{ width: '100%' }}
                 data={cartItems}
                 renderItem={({ item }) => (
                     <ListItem 
@@ -14,15 +15,9 @@ export default function List({ cartItems, formatAmount, showEditItemScreen, togg
                         formatAmount={formatAmount}
                         showEditItemScreen={showEditItemScreen}
                         toggleCheckedItem={toggleCheckedItem}
-                     />)}
-                style={styles.listContainer}
+                     />
+                )}
             />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    listContainer: {
-        width: '100%'
-    }
-});
