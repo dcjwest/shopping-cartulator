@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext } from '../state/globalState';
 import { View, FlatList } from 'react-native';
 import ListItem from './listItem';
 import { globalStyles } from '../styles/globalStyles';
 
-export default function List({ cartItems, formatAmount, showEditItemScreen, toggleCheckedItem }) {
+export default function List({ showEditItemScreen }) {
+    const { cartItems } = useContext(GlobalContext);
+
     return (
         <View style={globalStyles.container}>
             <FlatList 
@@ -12,9 +15,7 @@ export default function List({ cartItems, formatAmount, showEditItemScreen, togg
                 renderItem={({ item }) => (
                     <ListItem 
                         currentItem={item}
-                        formatAmount={formatAmount}
                         showEditItemScreen={showEditItemScreen}
-                        toggleCheckedItem={toggleCheckedItem}
                      />
                 )}
             />

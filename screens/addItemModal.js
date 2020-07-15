@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext } from '../state/globalState';
 import { StyleSheet, View, Text, Modal } from 'react-native';
 import InputItemScreen from '../components/inputItem';
 import { MaterialIcons } from '@expo/vector-icons';
 import { globalStyles } from '../styles/globalStyles';
 
-export default function AddItemModal({ modalOpen, toggleModal, submitItem}) {
+export default function AddItemModal({ modalOpen, toggleModal }) {
+    const { submitItem } = useContext(GlobalContext);
+
+    function submitModalItem(newItem) {
+        submitItem(newItem);
+        toggleModal();
+    }
+
     return (
         <Modal visible={modalOpen} animated>
                 <View>
@@ -16,7 +24,7 @@ export default function AddItemModal({ modalOpen, toggleModal, submitItem}) {
                         onPress={toggleModal}
                         style={styles.closeModalBtn}
                     />
-                    <InputItemScreen submitItem={submitItem} />
+                    <InputItemScreen submitItem={submitModalItem} />
                 </View>
             </Modal>
     );

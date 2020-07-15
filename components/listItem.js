@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { globalStyles } from '../styles/globalStyles';
+import { GlobalContext } from '../state/globalState';
 
-export default function ListItem({ currentItem, formatAmount, showEditItemScreen, toggleCheckedItem }) {
+export default function ListItem({ currentItem, showEditItemScreen }) {
+    const { toggleCheckedItem, formatAmount } = useContext(GlobalContext);
     return (
         <TouchableOpacity onPress={() => showEditItemScreen(currentItem)}>
             <View style={styles.listItemContainer}>

@@ -13,11 +13,21 @@ export default function InputItem({ currentItem = {key:'', name:'', cost:'', qua
         let itemKey = currentItem.key;
         if (!itemKey) itemKey = Math.floor(Math.random() * (10000 - 1) + 1);
 
+        let formattedCost = (
+            Math.round(
+                Math.abs(
+                    parseFloat(
+                        itemCost.replace(',', '.')
+                    )
+                ) * 100
+            ) / 100
+        );
+
         submitItem({
             key: itemKey.toString(),
             name: itemName,
-            cost: parseFloat(itemCost.replace(',', '.')),
-            quantity: itemQty? parseInt(itemQty) : 1,
+            cost: formattedCost,
+            quantity: itemQty? Math.abs(parseInt(itemQty)) : 1,
             checked: currentItem.checked
         });
     }

@@ -9,7 +9,7 @@ export default function AddItemButton({ toggleModal }) {
                 name='add-circle'
                 size={60}
                 color='#1988DC'
-                style={{margin: -6}}
+                style={{ margin: -6 }}
             />
         </TouchableOpacity>
     );

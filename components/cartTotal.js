@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext } from '../state/globalState';
 import { StyleSheet, View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function CartTotal({ cartItems, formatAmount }) {
+export default function CartTotal() {
+    const { cartItems, formatAmount } = useContext(GlobalContext);
+    
     function calculateTotal() {
         let currentTotal = cartItems .filter(item => item.checked).reduce((prev, curr) => {
             return prev + curr.quantity * curr.cost;
