@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useContext, useState, useLayoutEffect } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { GlobalContext } from '../state/globalState';
 import AddItemButton from '../components/addItemButton';
 import AddItemModal from '../screens/addItemModal';
 import CartTotal from '../components/cartTotal';
 import EmptyCart from '../components/emptyCart';
 import List from '../components/list';
+import DropDownMenu from '../components/dropDownMenu';
 import { globalStyles } from '../styles/globalStyles';
 
 export default function Home({ navigation }) {
@@ -14,6 +15,16 @@ export default function Home({ navigation }) {
 
     const toggleModal = () => setModalOpen(!modalOpen);
     const showEditItemScreen = (currentItem) => navigation.navigate('Edit Item', currentItem);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity>
+                    <DropDownMenu />
+                </TouchableOpacity>
+            )
+        })
+    })
 
     return (
         <View style={globalStyles.container}>

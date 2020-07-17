@@ -28,7 +28,6 @@ export default function EditItem({ route, navigation }) {
                         style={{margin: 15}}
                     />
                 </TouchableOpacity>
-                
             )
         });
     });

@@ -21,12 +21,22 @@ export default function Reducer(state, action) {
                     return item.key === toggledItemKey? { ...item, checked: !item.checked } : item;
                 })
             };
+        case 'TOGGLE_CHECKED_ALL':
+            let toggle = action.payload;
+            return {
+                ...state,
+                cartItems: state.cartItems.map(item => {
+                    return { ...item, checked: toggle }
+                })
+            };
         case 'DELETE_ITEM':
             let itemToDeleteKey = action.payload;
             return {
                 ...state,
                 cartItems: state.cartItems.filter(item => item.key !== itemToDeleteKey)
             };
+        case 'DELETE_ALL':
+            return { ...state, cartItems: [] };
         default:
             return state;
     }

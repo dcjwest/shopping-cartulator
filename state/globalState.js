@@ -14,7 +14,9 @@ export function GlobalProvider({ children }) {
     const submitItem = (newItem) => dispatch({ type: 'SUBMIT_ITEM', payload: newItem });
     const editItem = (editedItem) => dispatch({ type: 'EDIT_ITEM', payload: editedItem });
     const toggleCheckedItem = (key) => dispatch({ type: 'TOGGLE_CHECKED_ITEM', payload: key });
+    const toggleCheckedAll = (allSelected) => dispatch({ type: 'TOGGLE_CHECKED_ALL', payload: allSelected });
     const deleteItem = (key) => dispatch({ type: 'DELETE_ITEM', payload: key });
+    const deleteAll = () => dispatch({ type: 'DELETE_ALL' });
 
     function formatAmount(amount) {
         if (amount === 0) return 'R0.00';
@@ -40,7 +42,9 @@ export function GlobalProvider({ children }) {
             submitItem,
             editItem,
             toggleCheckedItem,
+            toggleCheckedAll,
             deleteItem,
+            deleteAll,
             formatAmount
         }}>
             { children }
