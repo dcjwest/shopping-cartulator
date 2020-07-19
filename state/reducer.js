@@ -37,6 +37,13 @@ export default function Reducer(state, action) {
             };
         case 'DELETE_ALL':
             return { ...state, cartItems: [] };
+        case 'SET_SHOPPING_LIST':
+            return state;
+        case 'GET_SHOPPING_LIST':
+            return {
+                ...state,
+                cartItems: [...action.payload]
+            };
         default:
             return state;
     }

@@ -1,4 +1,5 @@
 import React, { useReducer, createContext } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import Reducer from './reducer';
 
 const initialState = {
@@ -18,7 +19,43 @@ export function GlobalProvider({ children }) {
     const deleteItem = (key) => dispatch({ type: 'DELETE_ITEM', payload: key });
     const deleteAll = () => dispatch({ type: 'DELETE_ALL' });
 
-    function formatAmount(amount) {
+    const setShoppingList = async (listItems) => {
+        let saveSuccess = false;
+
+        try {
+          const jsonValue = JSON.stringify(listItems);
+          await AsyncStorage.setItem('my-shopping-list', jsonValue);
+          saveSuccess = true;
+        } catch (err) {
+          console.log(err);
+        }
+        
+        dispatch({ type: 'SET_SHOPPING_LIST' });
+        return saveSuccess;
+    }
+
+    const getShoppingList = async () => {
+        let shoppingList, loadSuccess = false;
+        try {
+            const jsonValue = await AsyncStorage.getItem('my-shopping-list');
+
+            if (jsonValue != null) {
+                shoppingList = JSON.parse(jsonValue);
+                loadSuccess = true;
+            } else {
+                shoppingList = [];
+                loadSuccess = undefined;
+            }
+        } catch(err) {
+            console.log(err);
+            shoppingList = [];
+        }
+
+        dispatch({ type: 'GET_SHOPPING_LIST', payload: shoppingList });
+        return loadSuccess;
+    }
+    
+    const formatAmount = amount => {
         if (amount === 0) return 'R0.00';
 
         let formattedAmount = amount.toString();
@@ -45,7 +82,9 @@ export function GlobalProvider({ children }) {
             toggleCheckedAll,
             deleteItem,
             deleteAll,
-            formatAmount
+            formatAmount,
+            setShoppingList,
+            getShoppingList
         }}>
             { children }
         </GlobalContext.Provider>
