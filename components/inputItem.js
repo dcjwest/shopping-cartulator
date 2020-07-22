@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { Input } from 'react-native-elements';
 
 export default function InputItem({ currentItem = {key:'', name:'', cost:'', quantity:'', checked:false}, submitItem }) {
@@ -34,35 +34,40 @@ export default function InputItem({ currentItem = {key:'', name:'', cost:'', qua
 
     return (
         <View style={styles.container}>
-            <View style={styles.inputField}>
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Name</Text>
                 <Input 
-                    label='Item'
+                    containerStyle={styles.inputField}
                     value={itemName}
                     onChangeText={setItemName}
                 />
             </View>
-            <View style={styles.inputField}>
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Cost</Text>
                 <Input 
-                    label='Cost'
+                    containerStyle={styles.inputField}
                     keyboardType='numeric'
                     value={itemCost}
                     onChangeText={setItemCost}
                 />
             </View>
-            <View style={styles.inputField}>
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Qty</Text>
                 <Input 
-                    label='Quantity'
+                    containerStyle={styles.inputField}
                     keyboardType='numeric'
                     defaultValue='1'
                     value={itemQty}
                     onChangeText={setItemQty}
                 />
             </View>
-            <Button 
-                color='#1988DC'
-                title='Submit'
-                onPress={handlePress}
-            />
+            <View style={{marginTop: 20}}>
+                <Button 
+                    color='#1988DC'
+                    title='Submit'
+                    onPress={handlePress}
+                />
+            </View>
         </View>
     );
 }
@@ -71,9 +76,21 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         paddingHorizontal: 18,
-        paddingTop: 16
+        paddingTop: 20
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 8
+    },
+    inputLabel: {
+        color: '#888',
+        fontSize: 16,
+        fontWeight: 'bold',
+        flex: 1,
+        marginTop: 5,
     },
     inputField: {
-    },
-
-})
+        maxWidth: '75%'
+    }
+});

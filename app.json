@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "shopping-cartulator",
+    "name": "Shopping Cartulator",
     "slug": "shopping-cartulator",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,6 +21,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A handy little shopping list app that keeps a running total value of items added to your cart.",
+    "githubUrl": "https://github.com/dcjwest/shopping-cartulator"
   }
 }
